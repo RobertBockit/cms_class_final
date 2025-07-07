@@ -1,0 +1,107 @@
+{
+  "kind": "collectionType",
+  "collectionName": "locations",
+  "info": {
+    "singularName": "location",
+    "pluralName": "locations",
+    "displayName": "Location",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Website": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "opening_hours": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "contact_email": {
+      "type": "email",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "location_overview": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "capacity": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "size": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "events": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::name.name",
+      "mappedBy": "locations"
+    },
+    "contact_data": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact-data.contact-data"
+    },
+    "accessibility_features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::accessibility-feature.accessibility-feature",
+      "mappedBy": "location"
+    }
+  }
+}

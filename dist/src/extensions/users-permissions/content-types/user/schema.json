@@ -1,0 +1,105 @@
+{
+    "kind": "collectionType",
+    "collectionName": "up_users",
+    "info": {
+        "name": "user",
+        "description": "",
+        "singularName": "user",
+        "pluralName": "users",
+        "displayName": "User"
+    },
+    "options": {
+        "draftAndPublish": false
+    },
+    "attributes": {
+        "username": {
+            "type": "string",
+            "minLength": 3,
+            "unique": true,
+            "configurable": false,
+            "required": true
+        },
+        "email": {
+            "type": "email",
+            "minLength": 6,
+            "configurable": false,
+            "required": true
+        },
+        "provider": {
+            "type": "string",
+            "configurable": false
+        },
+        "password": {
+            "type": "password",
+            "minLength": 6,
+            "configurable": false,
+            "private": true,
+            "searchable": false
+        },
+        "resetPasswordToken": {
+            "type": "string",
+            "configurable": false,
+            "private": true,
+            "searchable": false
+        },
+        "confirmationToken": {
+            "type": "string",
+            "configurable": false,
+            "private": true,
+            "searchable": false
+        },
+        "confirmed": {
+            "type": "boolean",
+            "default": false,
+            "configurable": false
+        },
+        "blocked": {
+            "type": "boolean",
+            "default": false,
+            "configurable": false
+        },
+        "role": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "plugin::users-permissions.role",
+            "inversedBy": "users",
+            "configurable": false
+        },
+        "firstName": {
+            "type": "string",
+            "required": true
+        },
+        "lastName": {
+            "type": "string",
+            "required": false
+        },
+        "birthday": {
+            "type": "date",
+            "required": true
+        },
+        "language": {
+            "type": "enumeration",
+            "enum": [
+                "English",
+                "German",
+                "Russian",
+                "Spanish",
+                "Serbian",
+                "Mandatin",
+                "Turkish"
+            ]
+        },
+        "disability_card": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::disability-card.disability-card",
+            "inversedBy": "user"
+        },
+        "companion_person": {
+            "type": "relation",
+            "relation": "manyToOne",
+            "target": "api::companion-person.companion-person",
+            "inversedBy": "users_permissions_users"
+        }
+    }
+}

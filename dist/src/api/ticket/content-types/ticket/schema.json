@@ -1,0 +1,49 @@
+{
+    "kind": "collectionType",
+    "collectionName": "tickets",
+    "info": {
+        "singularName": "ticket",
+        "pluralName": "tickets",
+        "displayName": "Ticket",
+        "description": ""
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "attributes": {
+        "name": {
+            "type": "string"
+        },
+        "price": {
+            "type": "decimal"
+        },
+        "refundPolicy": {
+            "type": "string"
+        },
+        "format": {
+            "type": "enumeration",
+            "enum": [
+                "physical",
+                "digita;"
+            ]
+        },
+        "zone": {
+            "type": "string"
+        },
+        "seat": {
+            "type": "string"
+        },
+        "event": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::name.name",
+            "inversedBy": "ticket"
+        },
+        "companion_person": {
+            "type": "relation",
+            "relation": "oneToOne",
+            "target": "api::companion-person.companion-person",
+            "inversedBy": "ticket"
+        }
+    }
+}

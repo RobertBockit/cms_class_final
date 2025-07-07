@@ -1,0 +1,150 @@
+{
+  "kind": "collectionType",
+  "collectionName": "names",
+  "info": {
+    "singularName": "name",
+    "pluralName": "names",
+    "displayName": "Event",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "start_time": {
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "end_time": {
+      "type": "datetime",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "eventType": {
+      "type": "enumeration",
+      "enum": [
+        "opera",
+        "cinema",
+        "race"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "website": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "language": {
+      "type": "enumeration",
+      "enum": [
+        "English ",
+        "German",
+        "Latvian"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "capacity": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "locations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::location.location",
+      "inversedBy": "events"
+    },
+    "seat_map": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "need_for_accessibilities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::need-for-accessibility.need-for-accessibility",
+      "mappedBy": "event"
+    },
+    "accessibility_features": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::accessibility-feature.accessibility-feature",
+      "mappedBy": "event"
+    },
+    "ticket": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ticket.ticket",
+      "mappedBy": "event"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "need_for_accessibilities",
+  "info": {
+    "singularName": "need-for-accessibility",
+    "pluralName": "need-for-accessibilities",
+    "displayName": "NeedForAccessibility"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "event": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::name.name",
+      "inversedBy": "need_for_accessibilities"
+    }
+  }
+}

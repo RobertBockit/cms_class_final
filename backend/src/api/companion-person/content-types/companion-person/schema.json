@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companion_people",
+  "info": {
+    "singularName": "companion-person",
+    "pluralName": "companion-people",
+    "displayName": "CompanionPerson"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "users_permissions_users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "companion_person"
+    },
+    "ticket": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ticket.ticket",
+      "mappedBy": "companion_person"
+    }
+  }
+}
