@@ -1,6 +1,7 @@
 
 <h1> Strapi / Frontend Setup + Credentials</h1>
 <h2>Setup</h2>
+Before starting the services, go to the backend folder, copy .env.example to .env, if not available.
 <h3>Frontend - React App</h3>
 <p>Go into /frontend/</p>
 <p>npm install</p>
