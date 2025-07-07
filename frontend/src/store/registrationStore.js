@@ -1,4 +1,3 @@
-// src/store/registrationStore.js
 import { create } from 'zustand';
 
 export const useRegistrationStore = create((set) => ({
@@ -6,11 +5,11 @@ export const useRegistrationStore = create((set) => ({
     data: {
         email: '',
         password: '',
-        companion: false, // Moved companion here to be set in Step 1
-        number: '',       // Renamed from cardId
-        issuingDate: '',  // Renamed from issueDate
-        expiry: '',       // Renamed from expiryDate
-        proof: null,      // Renamed from photo, will hold the File object
+        companion: false,
+        number: '',
+        issuingDate: '',
+        expiry: '',
+        proof: null,
         jwt: null,
         user: null,
     },

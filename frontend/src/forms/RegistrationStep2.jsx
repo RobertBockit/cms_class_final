@@ -1,4 +1,3 @@
-// src/forms/RegistrationStep2.jsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -8,11 +7,7 @@ import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useRegistrationStore } from '../store/registrationStore';
 import { useNavigate } from 'react-router-dom';
 
-// Helper function to validate YYYY-MM-DD format
-const isValidDateFormat = (dateString) => {
-    if (!dateString) return true;
-    return /^\d{4}-\d{2}-\d{2}$/.test(dateString);
-};
+
 
 const registrationStep2Schema = z.object({
     isCompanion: z.boolean().optional(),
@@ -22,24 +17,17 @@ const registrationStep2Schema = z.object({
     proof: z.any().optional(),
 }).refine((data) => {
     if (data.isCompanion) {
-        return true; // If companion, other fields are not required
+        return true;
     }
-    // If not a companion, the fields are required
     return (
         data.number.length > 0 &&
         data.issuingDate.length > 0 &&
         data.expiry.length > 0
     );
 }, {
-    // This message will be shown if the refinement fails, but we handle individual messages below
     message: "Card details are required if you are not a companion.",
-    // We can specify path to have a more granular error, but for now this is fine.
 });
 
-/**
- * @typedef {object} RegistrationStep2Props
- * Component for the second step of user registration.
- */
 export default function RegistrationStep2() {
     const { t } = useTranslation();
     const { setStep, setData, data, resetStore } = useRegistrationStore();
@@ -74,7 +62,6 @@ export default function RegistrationStep2() {
             return;
         }
 
-        // If the user is a companion, skip card creation and just log them in.
         if (values.isCompanion) {
             localStorage.setItem('jwt', jwt);
             localStorage.setItem('user', JSON.stringify(user));
@@ -88,7 +75,6 @@ export default function RegistrationStep2() {
         try {
             let uploadedFileId = null;
 
-            // Step 1: Upload the file to the media library if it exists
             const hasFileUpload = values.proof && values.proof.length > 0 && values.proof[0] instanceof File;
             if (hasFileUpload) {
                 const fileFormData = new FormData();
@@ -115,7 +101,6 @@ export default function RegistrationStep2() {
                 }
             }
 
-            // Step 2: Create the disability card entry, linking the uploaded file if available
             const payload = {
                 data: {
                     number: values.number,
@@ -141,13 +126,12 @@ export default function RegistrationStep2() {
             if (createResponse.ok) {
                 console.log('Strapi Disability Card Creation Success:', responseData);
 
-                // Save JWT and user data to localStorage, just like in login
                 localStorage.setItem('jwt', jwt);
                 localStorage.setItem('user', JSON.stringify(user));
 
                 setSuccess(t('registration.success_step2') || 'Disability card created successfully! Registration complete.');
-                resetStore(); // Clear the registration store
-                navigate('/dashboard'); // Redirect to dashboard
+                resetStore();
+                navigate('/dashboard');
             } else {
                 console.error('Strapi Disability Card Creation Error:', responseData);
                 const errorMessage = responseData.error?.message || t('registration.error_step2_generic') || 'Disability card creation failed. Please try again.';

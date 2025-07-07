@@ -7,7 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useRegistrationStore } from '../store/registrationStore';
 
-// Define Zod schema for Registration Step 1
 const registrationStep1Schema = z.object({
     email: z.string().email({ message: 'Please enter a valid email address.' }),
     password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
@@ -52,7 +51,7 @@ export default function RegistrationStep1() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: values.email, // Strapi often uses username for registration, or email
+                    username: values.email,
                     email: values.email,
                     password: values.password,
                 }),
@@ -63,9 +62,8 @@ export default function RegistrationStep1() {
             if (response.ok) {
                 console.log('Strapi User Registration Success:', responseData);
                 setSuccess(t('registration.success_step1') || 'User created successfully! Proceeding to next step.');
-                // Store JWT and user data in the store for use in Step 2
                 setData({
-                    ...values, // Keep email and password in store if needed for review
+                    ...values,
                     jwt: responseData.jwt,
                     user: responseData.user,
                 });

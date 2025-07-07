@@ -1,13 +1,9 @@
 // src/components/NavbarComponent.jsx
 import React from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom'; // Use NavLink for active link styling
-import LanguageSwitcher from './LanguageSwitcher'; // Import the LanguageSwitcher
+import { NavLink } from 'react-router-dom';
+import LanguageSwitcher from './LanguageSwitcher';
 
-/**
- * @typedef {object} NavbarComponentProps
- * Renders a responsive navigation bar with links and a language switcher.
- */
 export default function NavbarComponent() {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
@@ -27,7 +23,6 @@ export default function NavbarComponent() {
                         </Nav.Link>
                     </Nav>
                     <Nav>
-                        {/* Language Switcher on the right side of the Navbar */}
                         <LanguageSwitcher />
                     </Nav>
                 </Navbar.Collapse>

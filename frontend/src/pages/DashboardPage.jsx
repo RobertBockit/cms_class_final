@@ -4,18 +4,7 @@ import {Container, Row, Col, Card, Alert, Spinner, Button} from 'react-bootstrap
 import { useTranslation } from 'react-i18next';
 import EventsComponent from '../components/EventsComponent';
 
-/**
- * @typedef {object} UserDetails
- * @property {string} id
- * @property {string} username
- * @property {string} email
- * // Add other user properties as per your Strapi user model
- */
 
-/**
- * @typedef {object} DashboardPageProps
- * Component that displays user dashboard, accessible only if logged in.
- */
 export default function DashboardPage() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
@@ -34,7 +23,6 @@ export default function DashboardPage() {
             }
 
             try {
-                // Fetch the full user details from Strapi, populating the role
                 const userResponse = await fetch('http://localhost:1337/api/users/me?populate=role', {
                     headers: {
                         'Authorization': `Bearer ${jwt}`,
@@ -42,17 +30,14 @@ export default function DashboardPage() {
                 });
 
                 if (!userResponse.ok) {
-                    // This can happen if the token is expired or invalid
                     throw new Error('Failed to fetch user details.');
                 }
 
                 const fullUser = await userResponse.json();
                 setUser(fullUser);
                 console.log(fullUser);
-                // Update localStorage with the complete user object for future use
                 localStorage.setItem('user', JSON.stringify(fullUser));
 
-                // Now, with the full user object, check the role and fetch venues
                 if (fullUser.role?.name === 'venueOwner') {
                     const venuesResponse = await fetch(`http://localhost:1337/api/locations?populate=*&locale=${i18n.language}`, {
                         headers: {
@@ -105,9 +90,8 @@ export default function DashboardPage() {
         );
     }
 
-    // If user is null after loading and no error, it means redirection happened
     if (!user) {
-        return null; // Or a simple loading indicator, as navigate already handles redirection
+        return null;
     }
 
     return (
@@ -124,8 +108,6 @@ export default function DashboardPage() {
                                 <p><strong>{t('dashboard.username') || 'Username'}:</strong> {user.username}</p>
                                 <p><strong>{t('dashboard.email') || 'Email'}:</strong> {user.email}</p>
                                 <p><strong>{t('dashboard.user_id') || 'User ID'}:</strong> {user.id}</p>
-                                {/* Add more user details as needed from the 'user' object */}
-                                {/* Example of displaying a role if your Strapi user model has one */}
                                 {user.role && <p><strong>{t('dashboard.role') || 'Role'}:</strong> {user.role.name}</p>}
                             </div>
 
@@ -143,7 +125,6 @@ export default function DashboardPage() {
 
                     <EventsComponent />
 
-                    {/* Conditional Venues Section */}
                     {user.role?.name === 'venueOwner' && venues.length > 0 && (
                         <Card className="shadow-sm p-4 mt-4">
                             <Card.Body>
@@ -151,7 +132,7 @@ export default function DashboardPage() {
                                 {venues.map((venue) => {
                                     console.log(venue.Name);
                                     if (!venue || !venue.id) {
-                                        return "null"; // Don't render anything for this item
+                                        return "null";
                                     }
 
                                     return (

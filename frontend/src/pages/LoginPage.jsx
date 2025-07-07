@@ -4,19 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap'; // Import Alert and Spinner
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-// Define your form schema using Zod for robust validation
 const loginFormSchema = z.object({
     email: z.string().email({ message: "Please enter a valid email address." }),
     password: z.string().min(1, { message: "Password is required." }), // Password is required for login
 });
 
-/**
- * @typedef {object} LoginPageProps
- * Component for user login, handling form submission and Strapi API authentication.
- */
 export default function LoginPage() {
     const { t } = useTranslation();
     const navigate = useNavigate(); // Hook for programmatic navigation
@@ -33,10 +28,6 @@ export default function LoginPage() {
 
     const { handleSubmit, register, formState: { errors } } = form;
 
-    /**
-     * Handles form submission for login, making an API call to Strapi.
-     * @param {object} values - Form data (email, password).
-     */
     const onSubmit = async (values) => {
         setLoading(true);
         setError(null);
@@ -87,7 +78,6 @@ export default function LoginPage() {
                             <h2 className="text-center mb-4">{t("login.title")}</h2>
                             <p className="text-center text-muted mb-4">{t("login.description") || "Enter your credentials to access your account."}</p>
 
-                            {/* Display error message */}
                             {error && <Alert variant="danger">{error}</Alert>}
 
                             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -98,7 +88,7 @@ export default function LoginPage() {
                                         placeholder={t("login.email_placeholder") || "m@example.com"}
                                         {...register("email")}
                                         isInvalid={!!errors.email}
-                                        disabled={loading} // Disable input while loading
+                                        disabled={loading}
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         {errors.email?.message}
@@ -112,7 +102,7 @@ export default function LoginPage() {
                                         placeholder={t("login.password_placeholder") || "••••••••"}
                                         {...register("password")}
                                         isInvalid={!!errors.password}
-                                        disabled={loading} // Disable input while loading
+                                        disabled={loading}
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         {errors.password?.message}
